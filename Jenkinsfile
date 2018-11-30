@@ -57,6 +57,10 @@ spec:
                             }
                         }
                     }
+                } catch (exc) {
+                    echo "Building failed!"
+                    currentBuild.result='UNSTABLE'
+                    error("Building failed!")
                 }
             }
         }
