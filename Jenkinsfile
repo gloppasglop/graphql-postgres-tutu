@@ -56,11 +56,11 @@ spec:
                                 openshift.selector("bc", "${APPLICATION_NAME}").startBuild("--from-dir=dsds/${BUILD_CONTEXT_DIR}").logs("-f")
                             }
                         }
+                    } catch (exc) {
+                        echo "Building failed!"
+                        currentBuild.result='UNSTABLE'
+                        error("Building failed!")
                     }
-                } catch (exc) {
-                    echo "Building failed!"
-                    currentBuild.result='UNSTABLE'
-                    error("Building failed!")
                 }
             }
         }
