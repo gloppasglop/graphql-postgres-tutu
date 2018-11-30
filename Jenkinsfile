@@ -12,7 +12,24 @@ openshift.withCluster() {
 }
 
 pipeline {
-    node('nodejs') {
+        agent {
+      kubernetes {
+        label 'mypod'
+        defaultContainer 'jnlp'
+        cloud 'openshift'
+        yaml """
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    some-label: some-label-value
+spec:
+  containers:
+  - name: jnlp
+    image:  openshift/pmi-jenkins-slave-base-centos7:latest
+"""
+      }
+    }
 
         stage('SCM Checkout') {
             //TODO: Remove. only for DEBUG
