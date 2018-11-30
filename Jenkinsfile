@@ -49,7 +49,7 @@ spec:
                     openshift.withCluster() {
                         openshift.withProject("${BUILD}") {
                             // Use the build config to build the image
-                            openshift.selector("bc", "${APP_NAME}").startBuild("--from-dir=oc-build").logs("-f")
+                            openshift.selector("bc", "${APP_NAME}").startBuild("--from-dir=.").logs("-f")
                         }
                     }
                 }
