@@ -96,7 +96,7 @@ spec:
             steps {
                 script {
                     openshift.withCluster() {
-                        openshift.withProject("${STAGE1}") {
+                        openshift.withProject("${DEV}") {
                             def dcObj = openshift.selector('dc', env.APP_NAME).object()
                             def podSelector = openshift.selector('pod', [deployment: "${APP_NAME}-${dcObj.status.latestVersion}"])
                             podSelector.untilEach {
