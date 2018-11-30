@@ -49,10 +49,12 @@ spec:
                 sh "env"
                 sh "oc whoami"
                 script {
-                    openshift.withCluster() {
-                        openshift.withProject("${BUILD}") {
-                            // Use the build config to build the image
-                            openshift.selector("bc", "${APPLICATION_NAME}").startBuild("--from-dir=./${BUILD_CONTEXT_DIR}").logs("-f")
+                    try {
+                        openshift.withCluster() {
+                            openshift.withProject("${BUILD}") {
+                                // Use the build config to build the image
+                                openshift.selector("bc", "${APPLICATION_NAME}").startBuild("--from-dir=dsds/${BUILD_CONTEXT_DIR}").logs("-f")
+                            }
                         }
                     }
                 }
