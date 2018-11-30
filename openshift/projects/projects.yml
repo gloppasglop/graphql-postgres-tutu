@@ -1,0 +1,27 @@
+apiVersion: v1
+kind: List
+items:
+- kind: ProjectRequest
+  apiVersion: v1
+  metadata:
+    name: ansible-inventory-dev
+    creationTimestam: null
+  displayName: ansible inventory App - Dev
+- kind: ProjectRequest
+  apiVersion: v1
+  metadata:
+    name: ansible-inventory-stage
+    creationTimestam: null
+  displayName: ansible inventory App - Stage
+- kind: ProjectRequest
+  apiVersion: v1
+  metadata:
+    name: ansible-inventory-prod
+    creationTimestam: null
+  displayName: ansible inventory App - Prod
+- kind: ProjectRequest
+  apiVersion: v1
+  metadata:
+    name: ansible-inventory-build
+    creationTimestam: null
+  displayName: ansible inventory App - Build
