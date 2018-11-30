@@ -16,6 +16,7 @@ pipeline {
       kubernetes {
         label 'mypod'
         defaultContainer 'jnlp'
+        // serviceAccount needed so that slave runs with jenkins right
         serviceAccount 'jenkins'
         cloud 'openshift'
         yaml """
@@ -51,8 +52,17 @@ spec:
                     openshift.withCluster() {
                         openshift.withProject("${BUILD}") {
                             // Use the build config to build the image
-                            openshift.selector("bc", "${APPLICATION_NAME}").startBuild("--from-dir=.").logs("-f")
+                            openshift.selector("bc", "${APPLICATION_NAME}").startBuild("--from-dir=${BUILD_CONTEXT_DIR}").logs("-f")
                         }
+                    }
+                }
+            }
+
+        stage('Promote from Build to Dev') {
+            steps {
+                script {
+                    openshift.withCluster() {
+                        openshift.tag("${env.BUILD}/${env.APP_NAME}:latest", "${env.DEV}/${env.APP_NAME}:latest")
                     }
                 }
             }
