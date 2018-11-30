@@ -16,6 +16,7 @@ pipeline {
       kubernetes {
         label 'mypod'
         defaultContainer 'jnlp'
+        serviceAccount 'jenkins'
         cloud 'openshift'
         yaml """
 apiVersion: v1
