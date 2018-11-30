@@ -12,7 +12,7 @@ openshift.withCluster() {
 }
 
 pipeline {
-        agent {
+    agent {
       kubernetes {
         label 'mypod'
         defaultContainer 'jnlp'
@@ -31,26 +31,23 @@ spec:
       }
     }
 
-        stage('SCM Checkout') {
-            //TODO: Remove. only for DEBUG
-            sh "echo $PWD"
-            git url: "${APPLICATION_SOURCE_REPO}", branch: "${APPLICATION_SOURCE_REF}"
-        }
+    stage('SCM Checkout') {
+        //TODO: Remove. only for DEBUG
+        sh "echo $PWD"
+        git url: "${APPLICATION_SOURCE_REPO}", branch: "${APPLICATION_SOURCE_REF}"
+    }
 
-        stage('Build') {
+    stage('Build') {
             
-            // GE
-            sh "ls *"
+        // GE
+        sh "ls *"
 
-            openshift.withCluster() {
-                openshift.withProject("${BUILD}") {
-                    // Use the build config to build the image
-                    openshift.selector("bc", "${APP_NAME}").startBuild("--from-dir=oc-build").logs("-f")
-                }
+        openshift.withCluster() {
+            openshift.withProject("${BUILD}") {
+                // Use the build config to build the image
+                openshift.selector("bc", "${APP_NAME}").startBuild("--from-dir=oc-build").logs("-f")
             }
-
-           
-
         }
+
     } 
 }
