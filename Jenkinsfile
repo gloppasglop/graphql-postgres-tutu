@@ -45,6 +45,7 @@ spec:
             steps {        
                 // GE
                 sh "env"
+                sh "oc whoami"
                 script {
                     openshift.withCluster() {
                         openshift.withProject("${BUILD}") {

@@ -77,7 +77,7 @@ parameters:
 - description: The name for the application.
   name: APPLICATION_NAME
   required: true
-  value: nodejs-postgres
+  value: ansible-inventory
 - description: The namespace to deploy into
   name: NAMESPACE
   required: true
