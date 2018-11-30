@@ -57,6 +57,7 @@ spec:
                     }
                 }
             }
+        }
 
         stage('Promote from Build to Dev') {
             steps {
