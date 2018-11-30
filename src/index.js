@@ -91,7 +91,7 @@ sequelize.sync({ force: eraseDatabaseOnSync }).then(async () => {
     createUsersWithMessages();
   }
 
-app.listen({ port: 3000 }, () => {
+app.listen({ port: 8080 }, () => {
     console.log('Apollo server');
   });
 });
