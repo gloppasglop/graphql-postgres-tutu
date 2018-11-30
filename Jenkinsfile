@@ -57,7 +57,7 @@ spec:
                             }
                         }
                     } catch (exc) {
-                        echo "Building failed!"
+                        echo exc.toString()
                         currentBuild.result='UNSTABLE'
                         error("Building failed!")
                     }
