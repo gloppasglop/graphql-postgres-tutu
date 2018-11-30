@@ -45,11 +45,12 @@ spec:
             steps {        
                 // GE
                 sh "ls *"
-
-                openshift.withCluster() {
-                    openshift.withProject("${BUILD}") {
-                        // Use the build config to build the image
-                        openshift.selector("bc", "${APP_NAME}").startBuild("--from-dir=oc-build").logs("-f")
+                script {
+                    openshift.withCluster() {
+                        openshift.withProject("${BUILD}") {
+                            // Use the build config to build the image
+                            openshift.selector("bc", "${APP_NAME}").startBuild("--from-dir=oc-build").logs("-f")
+                        }
                     }
                 }
             }
