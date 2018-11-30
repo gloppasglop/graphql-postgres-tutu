@@ -44,7 +44,7 @@ spec:
         stage('Build') {
             steps {        
                 // GE
-                sh "ls *"
+                sh "env"
                 script {
                     openshift.withCluster() {
                         openshift.withProject("${BUILD}") {
