@@ -31,23 +31,26 @@ spec:
       }
     }
 
-    stage('SCM Checkout') {
-        //TODO: Remove. only for DEBUG
-        sh "echo $PWD"
-        git url: "${APPLICATION_SOURCE_REPO}", branch: "${APPLICATION_SOURCE_REF}"
-    }
+    stages {
 
-    stage('Build') {
-            
-        // GE
-        sh "ls *"
-
-        openshift.withCluster() {
-            openshift.withProject("${BUILD}") {
-                // Use the build config to build the image
-                openshift.selector("bc", "${APP_NAME}").startBuild("--from-dir=oc-build").logs("-f")
-            }
+        stage('SCM Checkout') {
+            //TODO: Remove. only for DEBUG
+            sh "echo $PWD"
+            git url: "${APPLICATION_SOURCE_REPO}", branch: "${APPLICATION_SOURCE_REF}"
         }
 
+        stage('Build') {
+                
+            // GE
+            sh "ls *"
+
+            openshift.withCluster() {
+                openshift.withProject("${BUILD}") {
+                    // Use the build config to build the image
+                    openshift.selector("bc", "${APP_NAME}").startBuild("--from-dir=oc-build").logs("-f")
+                }
+            }
+
+        }
     } 
 }
