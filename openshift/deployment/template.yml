@@ -110,6 +110,7 @@ objects:
     labels:
       app: ${APPLICATION_NAME}
     name: ${DATABASE_SERVICE_NAME}
+    namespace: ${APPLICATION_NAME}-${ENV}
   stringData:
     database-name: ${POSTGRESQL_DATABASE}
     database-password: ${POSTGRESQL_PASSWORD}
@@ -120,6 +121,7 @@ objects:
     labels:
       app: ${APPLICATION_NAME}
     name: ${DATABASE_SERVICE_NAME}
+    namespace: ${APPLICATION_NAME}-${ENV}
   spec:
     ports:
     - name: postgresql
@@ -141,6 +143,7 @@ objects:
     labels:
       app: ${APPLICATION_NAME}
     name: ${DATABASE_SERVICE_NAME}
+    namespace: ${APPLICATION_NAME}-${ENV}
   spec:
     replicas: 1
     selector:

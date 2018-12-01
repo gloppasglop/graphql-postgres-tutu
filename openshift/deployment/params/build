@@ -1,0 +1,2 @@
+ENV=build
+SA_NAMESPACE=ci

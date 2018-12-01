@@ -1,0 +1,2 @@
+ENV=dev
+SA_NAMESPACE=ci

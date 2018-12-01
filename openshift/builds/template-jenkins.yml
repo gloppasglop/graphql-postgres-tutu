@@ -32,7 +32,8 @@ objects:
     strategy:
       type: "JenkinsPipeline"
       jenkinsPipelineStrategy:
-        autoProvisionEnabled: false
+        templateNamespace: ${JENKINS_MASTER_TEMPLATE_NAMESPACE}
+        templateName: ${JENKINS_MASTER_TEMPLATE_NAME}
         jenkinsfilePath: ${PIPELINE_SCRIPT}
         env:
         - name: "APPLICATION_SOURCE_REPO"
@@ -41,8 +42,6 @@ objects:
           value: "${APPLICATION_SOURCE_REF}"
         - name: "BUILD_CONTEXT_DIR"
           value: "${APPLICATION_CONTEXT_DIR}"
-        - name: "JENKINS_SLAVE_IMAGE"
-          value: "${JENKINS_SLAVE_IMAGE}"
 - apiVersion: v1
   kind: BuildConfig
   metadata:
@@ -85,7 +84,7 @@ parameters:
 - description: Git source URI for application
   name: SOURCE_REPOSITORY_URL
   required: true
-  value: https://github.com/gloppasglop/graphql-postgres-tutu.git
+  value: https://pmichrgitlabce.lsdc.ch.pmi/croux/graphql-postgres-tuto.git
 - description: Git branch/tag reference
   name: SOURCE_REPOSITORY_REF
   value: "master"
@@ -98,7 +97,7 @@ parameters:
 - description: Source code repo for demo app
   name: APPLICATION_SOURCE_REPO
   required: true
-  value: https://github.com/gloppasglop/graphql-postgres-tutu.git
+  value: https://pmichrgitlabce.lsdc.ch.pmi/croux/graphql-postgres-tuto.git
 - description: Source code branch/tag
   name: APPLICATION_SOURCE_REF
   required: true
@@ -127,7 +126,11 @@ parameters:
   name: IMAGE_STREAM_TAG_NAME
   required: true
   value: nodejs:8
-- description: Jenkins Slave Imag
-  name: JENKINS_SLAVE_IMAGE
+- description: Namespace where the Jenkins Template is installed. Usually openshift.
+  name: JENKINS_MASTER_TEMPLATE_NAMESPACE
   required: true
-  value: jenkins-slave-base-centos
+  value: openshift
+- description: Name of the Jenkins Template.
+  name: JENKINS_MASTER_TEMPLATE_NAME
+  required: true
+  value: jenkins-s2i-ephemeral
