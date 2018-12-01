@@ -28,7 +28,7 @@ metadata:
 spec:
   containers:
   - name: jnlp
-    image:  openshift/jenkins-slave-base-centos
+    image:  openshift/jenkins-slave-base-centos7
 """
       }
     }
