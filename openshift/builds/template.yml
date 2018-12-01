@@ -130,4 +130,4 @@ parameters:
 - description: Jenkins Slave Imag
   name: JENKINS_SLAVE_IMAGE
   required: true
-  value: jenkins-slave-base-centos
+  value: openshift/jenkins-slave-base-centos

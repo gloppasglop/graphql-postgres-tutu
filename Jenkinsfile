@@ -28,7 +28,7 @@ metadata:
 spec:
   containers:
   - name: jnlp
-    image:  ${JENKINS_SLAVE_IMAGE}
+    image:  openshift/jenkins-slave-base-centos
 """
       }
     }
