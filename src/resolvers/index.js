@@ -1,12 +1,23 @@
-import { urlencoded } from "body-parser";
+import { combineResolvers } from 'graphql-resolvers';
+import { AuthenticationError, UserInputError } from 'apollo-server';
+import { isAdmin, isAuthenticated } from './authorization';
 
 const resolvers = {
   Query: {
     me: (parent, args, { me }) => me,
     user: async (parent, { id }, { models }) => models.User.findById(id),
-    users: async (parent, args, { models }) => models.User.findAll(),
+    users: async (parent, args, { models }) => models.User.findAll(),
     messages: async (parent, args, { models }) => models.Message.findAll(),
     message: async (parent, { id }, { models }) => models.Message.findById(id),
+    host: async (parent, { id }, { models }) => models.Host.findById(id),
+    hostByName: async (parent, { name }, { models }) => models.Host.findOne({
+      where: {
+        name,
+      },
+    }),
+    hosts: async (parent, args, { models }) => models.Host.findAll(),
+    group: async (parent, { id }, { models }) => models.Group.findById(id),
+    groups: async (parent, args, { models }) => models.Group.findAll(),
   },
 
   Mutation: {
@@ -50,6 +61,19 @@ const resolvers = {
 
   Message: {
     user: async (message, args, { models }) => models.User.findById(message.userId),
+  },
+
+  Host: {
+    groups: async (host, args, { models }) => host.getGroups(),
+    hostvars: async (host, args, { models }) => host.getHostvars(),
+  },
+
+  Var: {
+    name: (hostvar, args, { models }) => hostvar.name.replace(/ /g,'_'),
+  },
+
+  Group: {
+    hosts: async (group, args, { models }) => group.getHosts(),
   },
 };
 

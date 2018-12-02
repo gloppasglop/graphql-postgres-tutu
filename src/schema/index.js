@@ -8,6 +8,13 @@ const schema = gql`
 
     messages: [Message!]!
     message(id: ID!): Message!
+
+    hosts: [Host!]
+    host(id: ID!): Host
+    hostByName(name: String!): Host
+
+    groups: [Group!]
+    group(id: ID!): Group
   }
 
   type Mutation {
@@ -21,10 +28,29 @@ const schema = gql`
     messages: [Message]
   }
 
+  type Host {
+    id: ID!
+    name: String!
+    groups: [Group]
+    hostvars: [Var]
+  }
+
+  type Group {
+    id: ID!
+    name: String!
+    hosts: [Host]
+  }
+
   type Message {
     id: ID!
     text: String!
     user: User!
+  }
+
+  type Var {
+    id: ID!
+    name: String!
+    value: String
   }
 `;
 

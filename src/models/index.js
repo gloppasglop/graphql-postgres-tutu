@@ -10,22 +10,20 @@ const sequelize = new Sequelize(
   },
 );
 
-
-const User = sequelize.define('user', {
-  username: Sequelize.STRING,
-});
-
-const Message = sequelize.define('message', {
-  text: Sequelize.STRING,
-});
-
-User.hasMany(Message, { onDelete: 'CASCADE' });
-Message.belongsTo(User);
-
 const models = {
-  User,
-  Message,
+  User: sequelize.import('./user'),
+  Message: sequelize.import('./message'),
+  GroupHost: sequelize.import('./groupHost'),
+  Host: sequelize.import('./host'),
+  Hostvar: sequelize.import('./hostvar'),
+  Group: sequelize.import('./group'),
 };
+
+Object.keys(models).forEach((key) => {
+  if ('associate' in models[key]) {
+    models[key].associate(models);
+  }
+});
 
 export { sequelize };
 export default models;
